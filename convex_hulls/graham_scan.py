@@ -1,15 +1,8 @@
 import math
 from point import Point
+from orientation import orientation
 
-def orientation(p1, p2, p3):
-    x1, y1 = (p1.x, p1.y)
-    x2, y2 = (p2.x, p2.y)
-    x3, y3 = (p3.x, p3.y)
-
-    return ((y2 - y1) * (x3 - x2)) - ((y3 - y2) * (x2 - x1))
-
-
-def graham_scan(points):
+def graham_scan(points: list[Point]):
     if len(points) == 0:
         return []
 
@@ -26,11 +19,14 @@ def graham_scan(points):
     # O(n)
     # Remove base for sorting and copy
     points.remove(base_p)
-    polar_plane = points.copy()
+
+    # Create a hard copy with new point objects so we don't change the original
+    polar_plane = []
+    for p in points:
+        polar_plane.append(p.copy())
 
     # O(n)
     # Transform plane so that base point is (0,0)
-    base_p_polar = Point(0,0)
     for p in polar_plane:
         p.x -= base_p.x
         p.y -= base_p.y 
@@ -45,7 +41,7 @@ def graham_scan(points):
     # O(nlgn)
     # Use a mapping+lambda function to sort the original array by the polar angle
     original_polar = zip(points, polar_angles_from_base)
-    sorted_counter_clockwise = [key for key,val in sorted(original_polar, key=lambda x: x[1])]
+    sorted_counter_clockwise = [k for k,val in sorted(original_polar, key=lambda x: x[1])]
 
     gs_stack = [base_p]
     # O(n) due to amortization (n items can only be pushed/popped once)
@@ -65,6 +61,7 @@ def graham_scan(points):
                     gs_stack.pop()
                     if len(gs_stack) < 2: # We can pop to less than 2 p
                         gs_stack.append(p)
+                        break
                     p1, p2, = gs_stack[-2], gs_stack[-1]
                     o = orientation(p1, p2, p)
                     if o <= 0: # CC or Colinear

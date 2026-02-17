@@ -8,7 +8,7 @@ class Generator:
   def generate(self, n):
     points = []
     for _ in range(0, n):
-      x = random.uniform(-100,100)
-      y = random.uniform(-100,100)
+      x = random.uniform(-1000000,1000000)
+      y = random.uniform(-1000000,1000000)
       points.append(Point(x, y))
     return points

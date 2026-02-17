@@ -1,11 +1,14 @@
-from generator import Generator
+import gc
 from graham_scan import graham_scan
-
+from monotone_chain import monotone_chain
+from tests import EmpiricalBoth
 
 if __name__ == "__main__":
-    gen = Generator()
-    plane1 = gen.generate(10000)
-
-    # GRAHAM SCAN + EMPIRICAL ANALYSIS
-    graham_scan(plane1)
-    # ALGO2 + EMPIRICAL ANALYSIS
+    
+    test = EmpiricalBoth()
+    methods = dir(test)
+    for i in methods:
+        if i[0:5] == "test_":
+            curr_test = getattr(test, i)
+            curr_test(graham_scan, monotone_chain)
+            gc.collect()
