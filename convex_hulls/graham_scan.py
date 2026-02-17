@@ -39,32 +39,15 @@ def graham_scan(points: list[Point]):
         polar_angles_from_base.append(theta)
 
     # O(nlgn)
-    # Use a mapping+lambda function to sort the original array by the polar angle
+    # Use a zip+lambda function to sort the original array by the polar angle
     original_polar = zip(points, polar_angles_from_base)
     sorted_counter_clockwise = [k for k,val in sorted(original_polar, key=lambda x: x[1])]
 
     gs_stack = [base_p]
     # O(n) due to amortization (n items can only be pushed/popped once)
+    # Loop through sorted list and build convex hull
     for p in sorted_counter_clockwise:
-        if len(gs_stack) < 2:
-            gs_stack.append(p)
-        else:
-            # check orientation, if clockwise pop off the stack until CC
-            p1, p2, = gs_stack[-2], gs_stack[-1]
-            o = orientation(p1, p2, p)
-            if o <= 0: # CC or Colinear
-                gs_stack.append(p)
-            else:
-                clockwise = True
-                # O(n)
-                while(clockwise):
-                    gs_stack.pop()
-                    if len(gs_stack) < 2: # We can pop to less than 2 p
-                        gs_stack.append(p)
-                        break
-                    p1, p2, = gs_stack[-2], gs_stack[-1]
-                    o = orientation(p1, p2, p)
-                    if o <= 0: # CC or Colinear
-                        gs_stack.append(p)
-                        clockwise = False
+        while len(gs_stack) >= 2 and (orientation(gs_stack[-2], gs_stack[-1], p) > 0):
+            gs_stack.pop()
+        gs_stack.append(p)
     return gs_stack

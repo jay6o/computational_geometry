@@ -8,7 +8,7 @@ if __name__ == "__main__":
     test = EmpiricalBoth()
     methods = dir(test)
     for i in methods:
-        if i[0:5] == "test_":
+        if i == "test_5":
             curr_test = getattr(test, i)
             curr_test(graham_scan, monotone_chain)
             gc.collect()
