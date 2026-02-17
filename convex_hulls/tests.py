@@ -31,9 +31,6 @@ class EmpiricalBoth:
         for p in points:
             plane.append(p.copy())
         start = time.perf_counter()
-        gs_res = algo1(plane)
-        for p in gs_res:
-            print(f"{p.x}, {p.y}")
         end = time.perf_counter()
         print(f"{algo1.__name__} n=5: {end-start}")
 
@@ -43,9 +40,6 @@ class EmpiricalBoth:
             plane.append(p.copy())
 
         start = time.perf_counter()
-        mc_res = algo2(plane)
-        for p in mc_res:
-            print(f"{p.x}, {p.y}")
         end = time.perf_counter()
         print(f"{algo2.__name__} n=5: {end-start}")
 
