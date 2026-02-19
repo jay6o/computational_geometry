@@ -282,15 +282,16 @@ class EmpiricalBoth:
         algo2(plane)
         end = time.perf_counter()
         print(f"{algo2.__name__} n=7M: {end-start}")
-    def test_50m(self, algo1, algo2):
-        points = self.gen.generate(50000000)
+
+    def test_8m(self, algo1, algo2):
+        points = self.gen.generate(8_000_000)
         plane = []
         for p in points:
             plane.append(p.copy())
         start = time.perf_counter()
         algo1(plane)
         end = time.perf_counter()
-        print(f"{algo1.__name__} n=50M: {end-start}")
+        print(f"{algo1.__name__} n=8M: {end-start}")
 
         # Test 2
         plane = []
@@ -300,7 +301,68 @@ class EmpiricalBoth:
         start = time.perf_counter()
         algo2(plane)
         end = time.perf_counter()
-        print(f"{algo2.__name__} n=50M: {end-start}")
+        print(f"{algo2.__name__} n=8M: {end-start}")
+
+    
+    def test_9m(self, algo1, algo2):
+        points = self.gen.generate(9000000)
+        plane = []
+        for p in points:
+            plane.append(p.copy())
+        start = time.perf_counter()
+        algo1(plane)
+        end = time.perf_counter()
+        print(f"{algo1.__name__} n=9M: {end-start}")
+
+        # Test 2
+        plane = []
+        for p in points:
+            plane.append(p.copy())
+
+        start = time.perf_counter()
+        algo2(plane)
+        end = time.perf_counter()
+        print(f"{algo2.__name__} n=9M: {end-start}")
+
+    def test_10m(self, algo1, algo2):
+        points = self.gen.generate(10_000_000)
+        plane = []
+        for p in points:
+            plane.append(p.copy())
+        start = time.perf_counter()
+        algo1(plane)
+        end = time.perf_counter()
+        print(f"{algo1.__name__} n=10M: {end-start}")
+
+        # Test 2
+        plane = []
+        for p in points:
+            plane.append(p.copy())
+
+        start = time.perf_counter()
+        algo2(plane)
+        end = time.perf_counter()
+        print(f"{algo2.__name__} n=10M: {end-start}")
+
+    #def test_50m(self, algo1, algo2):
+    #    points = self.gen.generate(50000000)
+    #    plane = []
+    #    for p in points:
+    #        plane.append(p.copy())
+    #    start = time.perf_counter()
+    #    algo1(plane)
+    #    end = time.perf_counter()
+    #    print(f"{algo1.__name__} n=50M: {end-start}")
+
+    #    # Test 2
+    #    plane = []
+    #    for p in points:
+    #        plane.append(p.copy())
+
+    #    start = time.perf_counter()
+    #    algo2(plane)
+    #    end = time.perf_counter()
+    #    print(f"{algo2.__name__} n=50M: {end-start}")
 
     #def test_500m(self, algo1, algo2):
     #    points = self.gen.generate(500000000)

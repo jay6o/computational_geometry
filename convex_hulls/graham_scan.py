@@ -21,23 +21,9 @@ def graham_scan(points: list[Point]):
     points.remove(base_p)
 
 
-    polar_angles_from_base = []
-    # O(n)
-    # Transform plane so that base point is (0,0)
-    # Calculate polar angles and reset to original
-    for p in points:
-        p.x -= base_p.x
-        p.y -= base_p.y 
-        theta = math.atan2(p.y, p.x)
-        polar_angles_from_base.append(theta)
-        p.x += base_p.x
-        p.y += base_p.y
-
-
     # O(nlgn)
-    # Use a zip+lambda function to sort the original array by the polar angle
-    original_polar = zip(points, polar_angles_from_base)
-    sorted_counter_clockwise = [k for k,val in sorted(original_polar, key=lambda x: x[1])]
+    # Sort by the polar angle around base
+    sorted_counter_clockwise = sorted(points, key=lambda p: math.atan2(p.y - base_p.y, p.x - base_p.x))
 
     gs_stack = [base_p]
     # O(n) due to amortization (n items can only be pushed/popped once)
